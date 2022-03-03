@@ -10,11 +10,12 @@ set(MSVC_TOOLSET_VERSION 143)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# set clmLibrary path
-set(CLM_LIB_SOURCE_DIR "${PROJECT_SOURCE_DIR}/../lib-cmake")
-#set(CLM_LIB_BINARY_DIR "${CLM_LIB_SOURCE_DIR}/out/${CMAKE_VS_PLATFORM_NAME}")
-
 add_executable(Application)
+
+set(EXTERNAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external")
+if(NOT EXISTS ${EXTERNAL_DIR})
+	file(MAKE_DIRECTORY ${EXTERNAL_DIR})
+endif()
 
 # set source files
 target_sources(
@@ -35,6 +36,18 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
 
+include(FetchContent)
+find_package(Git)
+set(CLM_LIBRARY_DIR "${EXTERNAL_DIR}/clmLibrary")
+if(NOT clmLibrary_POPULATED)
+	FetchContent_Populate(clmLibrary
+							GIT_REPOSITORY "https://github.com/clm101/clmLibrary.git"
+							GIT_TAG "origin/master"
+							SOURCE_DIR ${CLM_LIBRARY_DIR}
+	)
+	
+	add_subdirectory(${clmLibrary_SOURCE_DIR} ${clmLibrary_BINARY_DIR})
+endif()
 
 find_package(Vulkan MODULE REQUIRED)
 
@@ -69,7 +82,6 @@ target_compile_options(
 	"/W4"
 )
 
-add_subdirectory(${CLM_LIB_SOURCE_DIR} ${CLM_LIB_SOURCE_DIR})
 add_subdirectory(
 	"${CMAKE_CURRENT_SOURCE_DIR}/Mesh"
 )
