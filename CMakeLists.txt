@@ -46,7 +46,7 @@ if(NOT clmLibrary_POPULATED)
 							SOURCE_DIR ${CLM_LIBRARY_DIR}
 	)
 	
-	add_subdirectory(${clmLibrary_SOURCE_DIR} ${clmLibrary_BINARY_DIR})
+	add_subdirectory(${clmlibrary_SOURCE_DIR} ${clmlibrary_BINARY_DIR})
 endif()
 
 find_package(Vulkan MODULE REQUIRED)
