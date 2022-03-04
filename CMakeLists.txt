@@ -30,6 +30,7 @@ target_sources(
 	"win32.cpp"
 	"WindowsMessageMap.cpp"
 	"Application.cpp"
+	"Console.cpp"
 )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
