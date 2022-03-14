@@ -30,7 +30,6 @@ target_sources(
 	"win32.cpp"
 	"WindowsMessageMap.cpp"
 	"Application.cpp"
-	"Console.cpp"
 )
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
@@ -91,6 +90,9 @@ add_subdirectory(
 )
 add_subdirectory(
 	"${CMAKE_CURRENT_SOURCE_DIR}/Graphics"
+)
+add_subdirectory(
+	"${CMAKE_CURRENT_SOURCE_DIR}/Console"
 )
 
 target_link_libraries(Application PRIVATE clmLibrary ${Vulkan_LIBRARY})
